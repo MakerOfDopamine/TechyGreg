@@ -40,3 +40,12 @@ button {
     left: 6px;
 }
 
+.tooltip-text {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 999;
+    font-size: 24px;
+    color: white;
+    text-shadow: 1px 1px black;
+}

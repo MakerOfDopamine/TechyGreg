@@ -5,7 +5,6 @@ function save() {
 
 function load() {
     let data = localStorage.getItem("TechyGregSave")
-    console.log(data)
     if (data == null) {
         player = default_player;
         return

@@ -10,8 +10,29 @@ const objects_list = [
         name: "Logs",
         max_stack: 64,
         amount: 1
+    },
+    {
+        id: 2,
+        name: "Planks",
+        max_stack: 64,
+        amount: 1
+    },
+    {
+        id: 3,
+        name: "Sticks",
+        max_stack: 64,
+        amount: 1
     }
 ]
+
+function broken() {
+    return {
+        id: 9999,
+        name: "Broken Item",
+        max_stack: 1,
+        amount: 1
+    }
+}
 
 function clone(x) {
     return JSON.parse(JSON.stringify(x))
@@ -48,18 +69,18 @@ function getNextUsableSlot(x) {
     return getNextFreeSlot()
 }
 
-function addObject(x) {
-    // Adds x items into the inventory. Attempts to create a new stack if the operation exceeds max stack.
-    next_slot = getNextUsableSlot(1) // Change later for more objects
-    if (next_slot == null) throw "Error: addObject has no free slots"
+function addObject(x, y) {
+    // Adds x items of id y into the inventory. Attempts to create a new stack if the operation exceeds max stack.
+    next_slot = getNextUsableSlot(y) // Change later for more objects
+    if (next_slot == null) throw "Error: addObject has no free slots" // Change later to add overflow handling
     remaining_space = player.inventory[next_slot].max_stack - player.inventory[next_slot].amount
     if (x < remaining_space) {
         obj_add(next_slot, x)
         return
     } else {
         obj_add(next_slot, remaining_space)
-        next_slot = getNextUsableSlot(1)
-        player.inventory[next_slot] = getObject(1) // Change later for more objects
-        addObject(x - remaining_space - 1)
+        next_slot = getNextUsableSlot(y)
+        player.inventory[next_slot] = getObject(y) // Change later for more objects
+        addObject(x - remaining_space - 1, y)
     }
 }
